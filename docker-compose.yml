@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_DB=pyrodark
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.125'
+          memory: 64M
+        reservations:
+          cpus: '0.0625'
+          memory: 32M
+
+  darkpyro:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - db
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256m
+        reservations:
+          cpus: '0.125'
+          memory: 128M
