@@ -6,7 +6,7 @@ ENV TZ="Asia/Jakarta"
 ENV GIT_PYTHON_REFRESH=quiet
 
 # install git
-RUN apt update ; apt -y install git
+RUN apt update && apt install git -y
 
 # clone source repo
 RUN git clone \
