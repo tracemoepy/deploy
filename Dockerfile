@@ -4,6 +4,7 @@ FROM python:3.9-slim-buster
 # set ENV TZ and ...
 ENV TZ="Asia/Jakarta"
 ENV GIT_PYTHON_REFRESH=quiet
+ENV HOSTNAME DarkPyro
 
 # install git
 RUN apt update && apt install git -y
