@@ -7,7 +7,7 @@ RUN apt install -y \
                 git \
                 neofetch
 
-RUN git clone \
+RUN git clone -b debug \
     https://github.com/tracemoepy/DarkPyro-REV \
     /home/darkpyro
 
