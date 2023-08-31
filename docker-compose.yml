@@ -1,12 +1,13 @@
 version: '3.9'
 
 services:
+
   db:
     image: postgres:alpine
     environment:
-      - POSTGRES_DB=pyrodark
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+      - POSTGRES_USER=dark
+      - POSTGRES_PASSWORD=pyro
     ports:
       - 5432:5432
     restart: always
@@ -16,7 +17,6 @@ services:
           cpus: '0.125'
           memory: 64M
         reservations:
-          cpus: '0.0625'
           memory: 32M
 
   darkpyro:
@@ -26,11 +26,15 @@ services:
     depends_on:
       - db
     restart: always
+    environment:
+      - DATABASE_URL=postgresql://dark:pyro@db:5432/db
+      - GIT_PYTHON_REFRESH=quiet
+    env_file:
+      - config.env
     deploy:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256m
+          memory: 256M
         reservations:
-          cpus: '0.125'
           memory: 128M
